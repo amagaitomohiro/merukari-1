@@ -1,4 +1,4 @@
-   @extends('layouts.app')
+        @extends('layouts.app')
 
 @section('title')
     プロフィール編集
@@ -10,25 +10,29 @@
             <div class="col-8 offset-2">
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
-                         {{ session('status') }}
+                        {{ session('status') }}
                     </div>
-                @endif    
-            </div>      
+                @endif
+            </div>
         </div>
 
         <div class="row">
             <div class="col-8 offset-2 bg-white">
-                
-                <div class="font-weight-bold text-center border-bottom pb-3 pt-3" style="font-size: 24pxx">プロフィール編集</div>
 
-                <form method="POST" action="{{ route('mypage.edit-profile') }}" class="p-5" entype="multipart/form-data">
+                <div class="font-weight-bold text-center border-bottom pb-3 pt-3" style="font-size: 24px">プロフィール編集</div>
+
+                <form method="POST" action="{{ route('mypage.edit-profile') }}" class="p-5" enctype="multipart/form-data">
                     @csrf
-                
+
                     {{-- アバター画像 --}}
                     <span class="avatar-form image-picker">
                         <input type="file" name="avatar" class="d-none" accept="image/png,image/jpeg,image/gif" id="avatar" />
                         <label for="avatar" class="d-inline-block">
+                            @if (!empty($user->avatar_file_name))
+                            <img src="/storage/avatars/{{$user->avatar_file_name}}" class="rounded-circle" style="object-fit: cover; width: 200px; height: 200px;">
+                            @else
                             <img src="/images/avatar-default.svg" class="rounded-circle" style="object-fit: cover; width: 200px; height: 200px;">
+                            @endif
                         </label>
                     </span>
 
@@ -53,5 +57,3 @@
         </div>
     </div>
 @endsection
-
-    
